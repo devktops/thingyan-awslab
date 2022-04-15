@@ -1,0 +1,36 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:*",
+                "rds:*",
+                "s3:*",
+                "cloudfront:*",
+                "cloudwatch:*",
+                "elasticloadbalancing:*",
+                "iam:CreateServiceLinkedRole"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "ap-southeast-1"
+                }
+            }
+        },
+        {
+            "Effect": "Deny",
+            "Action": "ec2:*",
+            "Resource": "*",
+            "Condition": {
+                "ForAnyValue:StringNotLike": {
+                    "ec2:InstanceType": [
+                        "t2.micro",
+                        "t2.small"
+                    ]
+                }
+            }
+        }
+    ]
+}
